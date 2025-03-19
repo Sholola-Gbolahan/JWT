@@ -29,9 +29,17 @@ const login = async (req, res) => {
 }
 
 const dashboard = async (req, res) => {
-  // Added Authorixation : Bearer token - to Header in  postman
+  // Sending error if token not provided
+  const authHeader = req.headers.authorization
 
-  console.log(req.headers) // Login to view all headers data
+  // condition If there's no authHeader or if authHeader doesn't start with Bearer
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    throw new CustomAPIError("No token provided", 401) //Throwing 401 -auth error
+  }
+
+  // turning authentication into array and access the token value i.e authentication : [Bearer, tokenNumber]
+  const token = authHeader.split(" ")[1]
+  console.log(token)
 
   const luckyNumber = Math.floor(Math.random() * 100) // generating some random numbers
   res.status(200).json({
