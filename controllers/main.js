@@ -29,6 +29,10 @@ const login = async (req, res) => {
 }
 
 const dashboard = async (req, res) => {
+  // Added Authorixation : Bearer token - to Header in  postman
+
+  console.log(req.headers) // Login to view all headers data
+
   const luckyNumber = Math.floor(Math.random() * 100) // generating some random numbers
   res.status(200).json({
     msg: "Hello, John Doe",
