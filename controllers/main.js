@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken")
-const CustomAPIError = require("../errors/custom-error")
+const { BadRequestError } = require("../errors")
 
 const login = async (req, res) => {
   const { username, password } = req.body
 
   // Validate input
   if (!username || !password) {
-    throw new CustomAPIError("Please provide username and password", 400)
+    throw new BadRequestError("Please provide username and password")
   }
 
   // In a real app, you would:
@@ -25,7 +25,7 @@ const login = async (req, res) => {
       user: { id, username }, // Include basic user info
     })
   } catch (error) {
-    throw new CustomAPIError("Token generation failed", 500)
+    throw new BadRequestError("Token generation failed")
   }
 }
 
